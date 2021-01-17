@@ -24,7 +24,7 @@ public class LoadFromCamera extends Thread {
     private boolean drawClas;
     private boolean neuralNetwork;
     private Dimension choosedDimension;
-    private Webcam choosedCamera;
+    private Webcam choosedCamera = Webcam.getDefault();
 
     public void run() {
         CameraUI cameraUI = new CameraUI();
@@ -145,12 +145,14 @@ public class LoadFromCamera extends Thread {
             });
 
             jButton1.addActionListener(e -> {
+                webcam.close();
                 webcam = choosedCamera;
                 webcam.setViewSize(choosedDimension);
-                webcam.close();
                 pane.remove(1);
                 webcamPanel = camPanelInit(new WebcamPanel(webcam));
                 pane.add(webcamPanel,1);
+                pack();
+
             });
 
             this.addWindowListener(new WindowAdapter() {
@@ -166,12 +168,8 @@ public class LoadFromCamera extends Thread {
                 choosedCamera = (Webcam) jComboBox.getItemAt(jComboBox.getSelectedIndex());
             });
             jComboBox1.addActionListener(e -> {
-                webcam.close();
-                pane.remove(1);
-                webcam.setViewSize ((Dimension) jComboBox1.getItemAt(jComboBox1.getSelectedIndex()));
-                webcamPanel = camPanelInit(new WebcamPanel(webcam));
-                pane.add(webcamPanel,1);
-                pack();
+               choosedDimension = (Dimension) jComboBox1.getItemAt(jComboBox1.getSelectedIndex());
+
             });
         }
 
