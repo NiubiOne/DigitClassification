@@ -27,7 +27,7 @@ public class Samples extends Thread {
             if (listOfFiles[i].isFile()) {
                 try {
                     digits[i] = Integer.parseInt(listOfFiles[i].getName().charAt(1) + "");
-                    System.out.println(digits[i]);
+                  //  System.out.println(digits[i]);
                     BufferedImage sample = ImageIO.read(listOfFiles[i]);
                     images[i] = transformToInput(sample) ;
 
